@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="tasklistModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="status">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tasks" Relationship="Self.FK_task_status" FromRole="status" ToRole="task" />
+  </EntityType>
+  <EntityType Name="task">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="id_status" Type="Int32" />
+    <Property Name="descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="criacao" Type="DateTime" Precision="3" />
+    <Property Name="alteracao" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="status" Relationship="Self.FK_task_status" FromRole="task" ToRole="status" />
+  </EntityType>
+  <Association Name="FK_task_status">
+    <End Role="status" Type="Self.status" Multiplicity="0..1" />
+    <End Role="task" Type="Self.task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="status">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="task">
+        <PropertyRef Name="id_status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="tasklistEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="status" EntityType="Self.status" />
+    <EntitySet Name="tasks" EntityType="Self.task" />
+    <AssociationSet Name="FK_task_status" Association="Self.FK_task_status">
+      <End Role="status" EntitySet="status" />
+      <End Role="task" EntitySet="tasks" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

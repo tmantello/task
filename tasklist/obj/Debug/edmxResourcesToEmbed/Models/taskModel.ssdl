@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="tasklistModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="status">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="task">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="titulo" Type="varchar" MaxLength="100" />
+    <Property Name="id_status" Type="int" />
+    <Property Name="descricao" Type="varchar" MaxLength="500" />
+    <Property Name="criacao" Type="datetime" />
+    <Property Name="alteracao" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_task_status">
+    <End Role="status" Type="Self.status" Multiplicity="0..1" />
+    <End Role="task" Type="Self.task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="status">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="task">
+        <PropertyRef Name="id_status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="tasklistModelStoreContainer">
+    <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="task" EntityType="Self.task" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_task_status" Association="Self.FK_task_status">
+      <End Role="status" EntitySet="status" />
+      <End Role="task" EntitySet="task" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

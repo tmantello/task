@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="tasklistModelStoreContainer" CdmEntityContainer="tasklistEntities">
+    <EntitySetMapping Name="status">
+      <EntityTypeMapping TypeName="tasklistModel.status">
+        <MappingFragment StoreEntitySet="status">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tasks">
+      <EntityTypeMapping TypeName="tasklistModel.task">
+        <MappingFragment StoreEntitySet="task">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="id_status" ColumnName="id_status" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="criacao" ColumnName="criacao" />
+          <ScalarProperty Name="alteracao" ColumnName="alteracao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
